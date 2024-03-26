@@ -1420,6 +1420,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f79c1a4ccc7e347997a4f9ef6cd815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lines:
+  - This is a random line of dialogue.
+  - I want to say something, come over here.
+  - The world is a crazy place sometines.
+  - Don't lose hope, things will get better!
+  - "It's a bird? It's a plane? No! \u2014 It's Super Sheltie!"
 --- !u!1 &826984350
 GameObject:
   m_ObjectHideFlags: 0
@@ -2928,7 +2934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -553.48, y: -98.32}
+  m_AnchoredPosition: {x: -633, y: -98.168}
   m_SizeDelta: {x: 813.05, y: 1276.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1635049578

@@ -100,6 +100,23 @@ public class TextArchitect
     private void OnComplete()
     {
         _buildProcess = null;
+        hurryUp = false;
+    }
+
+    public void ForceComplete()
+    {
+        switch (buildMethod)
+        { 
+            case BuildMethod.typewriter:
+                tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+                break;
+
+            case BuildMethod.fade:
+                break;
+        }
+
+        Stop();
+        OnComplete();
     }
 
     private void Prepare()
