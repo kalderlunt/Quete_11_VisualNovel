@@ -15,8 +15,8 @@ public class TestFiles : MonoBehaviour
     {
         List<string> lines = FileManager.ReadTextAsset(fileName, false);
 
-        foreach (string line in lines)
-            Debug.Log(line);
+/*        foreach (string line in lines)
+            Debug.Log(line);*/
 
         yield return null;
     }
