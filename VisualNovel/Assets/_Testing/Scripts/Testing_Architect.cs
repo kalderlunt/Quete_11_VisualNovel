@@ -24,7 +24,7 @@ namespace TESTING
         void Start()
         {
             ds = DialogueSystem.instance;
-            architect = new(ds._dialogueContainer.dialogueText);
+            architect = new(ds.dialogueContainer.dialogueText);
             architect.buildMethod = TextArchitect.BuildMethod.fade;
             architect.speed = 0.5f;
         }
