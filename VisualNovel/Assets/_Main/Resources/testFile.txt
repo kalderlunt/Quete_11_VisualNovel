@@ -7,3 +7,5 @@ setScene("Classroom" -s 5.5)
 narrator "Hello, \"Quote Here\" right back at you!"
 
 Akari "Ouais, c'est une conversatiom de 'Hello World' traditionnelle." PlaySong(End, -p 0.5), list(players), saveGame(1 -g all -f simple)
+
+THOMAS "gfhrjekjbhfjewkjngmfkrgjnb gfnejk"

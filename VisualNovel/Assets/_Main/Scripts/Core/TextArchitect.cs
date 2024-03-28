@@ -1,11 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using TMPro;
-using UnityEditor.Searcher;
-using Unity.VisualScripting;
-using UnityEngine.UIElements.Experimental;
-using UnityEngine.Rendering.Universal;
-using System.Reflection;
+using UnityEngine;
 
 public class TextArchitect
 {

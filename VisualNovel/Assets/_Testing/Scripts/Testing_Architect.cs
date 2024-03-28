@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DIALOGUE;
+using UnityEngine;
 
 namespace TESTING
 {

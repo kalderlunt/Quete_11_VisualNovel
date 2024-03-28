@@ -9,7 +9,7 @@ namespace DIALOGUE
         private ConversationManager _conversationManager;
         private TextArchitect _architect;
 
-        public static DialogueSystem instance;
+        public static DialogueSystem instance { get; private set; }
 
         public delegate void DialogueSystemEvent();
         public event DialogueSystemEvent onUserPrompt_Next;
