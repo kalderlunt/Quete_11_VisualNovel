@@ -7,8 +7,6 @@ public class DL_DIALOGUE_DATA
     public List<DIALOGUE_SEGMENT> segments;
     private const string _segmentIdentifierPattern = @"\{[ca]\}|\{w[ca]\s\d*\.?\d*\}"; // ce que nous cherchons 2 types : simple ou double  {c}{a} | {wc}{wa}    => \s represente un chiffre   => \d* pas envie d'attentre obligatoirement une seconde entier mais peu etre 1/10 eme de seconde.
 
-    public bool hasDialogue => segments.Count > 0;
-
     public DL_DIALOGUE_DATA(string rawDialogue)
     {
         segments = RipSegments(rawDialogue);

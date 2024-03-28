@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestDialogueFiles : MonoBehaviour
 {
-    [SerializeField] private TextAsset fileToRoad = null;
+    [SerializeField] private TextAsset _fileToRoad = null;
 
     void Start()
     {
@@ -13,7 +13,7 @@ public class TestDialogueFiles : MonoBehaviour
 
     void StartConversation()
     {
-        List<string> lines = FileManager.ReadTextAsset(fileToRoad);
+        List<string> lines = FileManager.ReadTextAsset(_fileToRoad);
 
         /*foreach (string line in lines)
         {
@@ -47,6 +47,20 @@ public class TestDialogueFiles : MonoBehaviour
             }
         }*/
 
-        DialogueSystem.instance.Say(lines);
+        foreach (string line in lines)
+        {
+            if (string.IsNullOrWhiteSpace(line)) 
+                continue;
+
+            DIALOGUE_LINE dl = DialogueParser.Parse(line);
+
+            for (int i = 0; i < dl.commandData.commands.Count; i++)
+            {
+                DL_COMMAND_DATA.Command command = dl.commandData.commands[i];
+                Debug.Log($"Command [{i}] '{command.name}' has arguments [{string.Join(", ", command.argument)}]");
+            }
+        }
+
+        //DialogueSystem.instance.Say(lines);
     }
 }

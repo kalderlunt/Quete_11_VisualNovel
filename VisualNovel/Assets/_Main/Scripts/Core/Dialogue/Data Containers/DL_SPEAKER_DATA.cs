@@ -22,11 +22,11 @@ public class DL_SPEAKER_DATA
     private const char      EXPRESSIONLAYER_JOINER      = ',';
     private const char      EXPRESSIONLAYER_DELIMITER   = ':';
 
-    public DL_SPEAKER_DATA(string rawSpkeaker) 
+    public DL_SPEAKER_DATA(string rawSpeaker) 
     {
         string pattern = @$"{NAMECAST_ID}|{POSITIONCAST_ID}|{EXPRESSIONCAST_ID.Insert(EXPRESSIONCAST_ID.Length -1, @"\")}";  // @ => pour que tout soit litteral
 
-        MatchCollection matches = Regex.Matches(rawSpkeaker, pattern);
+        MatchCollection matches = Regex.Matches(rawSpeaker, pattern);
 
         // Populate this data to avoid null references to values
         castName = "";
@@ -36,13 +36,13 @@ public class DL_SPEAKER_DATA
         // If there are no matches, then this entire line is the speaker name
         if (matches.Count == 0)
         {
-            name = rawSpkeaker;
+            name = rawSpeaker;
             return;
         }
 
         // Otherwise, isolate the speakername from casting data
         int index = matches[0].Index;
-        name = rawSpkeaker.Substring(0, index);
+        name = rawSpeaker.Substring(0, index);
 
         for (int i = 0; i < matches.Count; i++)
         {
@@ -53,14 +53,14 @@ public class DL_SPEAKER_DATA
             if (match.Value == NAMECAST_ID)
             {
                 startIndex  = match.Index + NAMECAST_ID.Length;
-                endIndex    = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpkeaker.Length;
-                castName    = rawSpkeaker.Substring(startIndex, endIndex - startIndex);
+                endIndex    = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpeaker.Length;
+                castName    = rawSpeaker.Substring(startIndex, endIndex - startIndex);
             }
             else if (match.Value == POSITIONCAST_ID)
             {
                 startIndex      = match.Index + POSITIONCAST_ID.Length;
-                endIndex        = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpkeaker.Length;
-                string castPos  = rawSpkeaker.Substring(startIndex, endIndex - startIndex);
+                endIndex        = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpeaker.Length;
+                string castPos  = rawSpeaker.Substring(startIndex, endIndex - startIndex);
 
                 string[] axis   = castPos.Split(AXISDELIMITER_ID, System.StringSplitOptions.RemoveEmptyEntries);
 
@@ -72,8 +72,8 @@ public class DL_SPEAKER_DATA
             else if (match.Value == EXPRESSIONCAST_ID)
             {
                 startIndex = match.Index + EXPRESSIONCAST_ID.Length;
-                endIndex = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpkeaker.Length;
-                string castExp = rawSpkeaker.Substring(startIndex, endIndex - (startIndex + 1));
+                endIndex = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpeaker.Length;
+                string castExp = rawSpeaker.Substring(startIndex, endIndex - (startIndex + 1));
 
                 CastExpressions = castExp.Split(EXPRESSIONLAYER_JOINER)
                     .Select(x => 

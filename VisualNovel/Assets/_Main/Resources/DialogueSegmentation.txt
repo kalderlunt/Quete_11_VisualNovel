@@ -1,10 +1,9 @@
 
 
+Kaito "Akari, Hello!" playSong("Funky beets" -v 0.75 -p 1), setMood(chill)
 
-Elen as ??? "Hello there"
+Elen "You have odd taste in music" playVoice("e_d1_v2" -v 1.5), setBackground(Room1 -t "Diagonal Lines" -s 3.5)
 
-Elen as ??? at 1:0 "Hello there"
+setAccomlishment("A Lengendary Boombox" true), setCLI(Elen 0:Angle1 1:Intrigued -s 2.3 -l true)
 
-Elen at 0.5:0.5 as The Girl "Hello There"
-
-Elen as ??? [0:Angle1, 1:happy] at 0 "Hello there"
+showScene(false),StopMusic(all -s 1.5)
