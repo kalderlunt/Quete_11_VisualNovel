@@ -1,0 +1,87 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using UnityEngine;
+
+public class DL_SPEAKER_DATA
+{
+
+    public string name, castName;
+    /// <summary>
+    /// This is the name that will display in the dialogue box to show who is speaking
+    /// </summary>
+    public string displayName => (castName != string.Empty ? castName : name);
+
+    public Vector2 castPosition;
+    public List<(int layer, string expression)> CastExpressions { get; set; }
+
+    private const string    NAMECAST_ID                 = " as ";
+    private const string    POSITIONCAST_ID             = " at ";
+    private const string    EXPRESSIONCAST_ID           = " [";
+    private const char      AXISDELIMITER_ID            = ':';
+    private const char      EXPRESSIONLAYER_JOINER      = ',';
+    private const char      EXPRESSIONLAYER_DELIMITER   = ':';
+
+    public DL_SPEAKER_DATA(string rawSpkeaker) 
+    {
+        string pattern = @$"{NAMECAST_ID}|{POSITIONCAST_ID}|{EXPRESSIONCAST_ID.Insert(EXPRESSIONCAST_ID.Length -1, @"\")}";  // @ => pour que tout soit litteral
+
+        MatchCollection matches = Regex.Matches(rawSpkeaker, pattern);
+
+        // Populate this data to avoid null references to values
+        castName = "";
+        castPosition = Vector2.zero;
+        CastExpressions = new();
+
+        // If there are no matches, then this entire line is the speaker name
+        if (matches.Count == 0)
+        {
+            name = rawSpkeaker;
+            return;
+        }
+
+        // Otherwise, isolate the speakername from casting data
+        int index = matches[0].Index;
+        name = rawSpkeaker.Substring(0, index);
+
+        for (int i = 0; i < matches.Count; i++)
+        {
+            Match match = matches[i];
+
+            int startIndex = 0; int endIndex = 0;
+
+            if (match.Value == NAMECAST_ID)
+            {
+                startIndex  = match.Index + NAMECAST_ID.Length;
+                endIndex    = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpkeaker.Length;
+                castName    = rawSpkeaker.Substring(startIndex, endIndex - startIndex);
+            }
+            else if (match.Value == POSITIONCAST_ID)
+            {
+                startIndex      = match.Index + POSITIONCAST_ID.Length;
+                endIndex        = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpkeaker.Length;
+                string castPos  = rawSpkeaker.Substring(startIndex, endIndex - startIndex);
+
+                string[] axis   = castPos.Split(AXISDELIMITER_ID, System.StringSplitOptions.RemoveEmptyEntries);
+
+                float.TryParse(axis[0], out castPosition.x);    // axis X
+                
+                if(axis.Length > 1)     // si on a un axe y
+                    float.TryParse(axis[1], out castPosition.y);    // axis Y
+            }
+            else if (match.Value == EXPRESSIONCAST_ID)
+            {
+                startIndex = match.Index + EXPRESSIONCAST_ID.Length;
+                endIndex = (i < matches.Count - 1) ? matches[i + 1].Index : rawSpkeaker.Length;
+                string castExp = rawSpkeaker.Substring(startIndex, endIndex - (startIndex + 1));
+
+                CastExpressions = castExp.Split(EXPRESSIONLAYER_JOINER)
+                    .Select(x => 
+                    {
+                        var parts = x.Trim().Split(EXPRESSIONLAYER_DELIMITER);
+                        return (int.Parse(parts[0]), parts[1]);
+                    }).ToList();
+            }
+        }
+    }
+}
