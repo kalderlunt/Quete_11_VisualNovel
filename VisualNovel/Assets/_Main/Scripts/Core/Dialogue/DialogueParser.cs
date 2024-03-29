@@ -8,11 +8,11 @@ namespace DIALOGUE
         private const string commandRegexPattern = @"[\w\[\]]*[^\s]\("; // w => character | * => any | n'importe quelle longueur tant qu'elle tant qu'elle n'est pas precede d'un espace blanc \ || ( => on cherche une parenthese
         public static DIALOGUE_LINE Parse(string rawLine)
         {
-            //Debug.Log($"Parsing line - '{rawLine}'");
+            Debug.Log($"Parsing line - '{rawLine}'");
 
             (string speaker, string dialogue, string commands) = RipContent(rawLine);
 
-            //Debug.Log($"Speaker = '{speaker}'\nDialogue = '{dialogue}'\nCommands = '{commands}'");
+            Debug.Log($"Speaker = '{speaker}'\nDialogue = '{dialogue}'\nCommands = '{commands}'");
 
             return new DIALOGUE_LINE(speaker, dialogue, commands);
         }
@@ -41,36 +41,37 @@ namespace DIALOGUE
                     isEscaped = false;
             }
 
-            //Debug.Log(rawLine.Substring(dialogueStart + 1, (dialogueEnd - dialogueStart) - 1));
-
             //Identify CommandPattern
             Regex commandRegex = new(commandRegexPattern);
-            Match match = commandRegex.Match(rawLine);
+            MatchCollection matches = commandRegex.Matches(rawLine);
             int commandStart = -1;
-
-            if (match.Success) // si on ne trouve pas de ligne mais une command
+            foreach (Match match in matches) // si on ne trouve pas de ligne mais une command
             {
-                commandStart = match.Index;
-
-                if (dialogueStart == -1 && dialogueEnd == -1) 
-                    return ("", "", rawLine.Trim());
+                if(match.Index < dialogueStart || match.Index > dialogueEnd)
+                {
+                    commandStart = match.Index;
+                    break;
+                }
             }
+
+            if (commandStart != -1 && (dialogueStart == -1 && dialogueEnd == -1))
+                return ("", "", rawLine.Trim());
 
             // If we are here then we either have dialogue or a multi word argument in a command. Figure out if this is dialogue.
             if (dialogueStart != -1 && dialogueEnd != -1 && (commandStart == -1 || commandStart > dialogueEnd))
             {
                 // we know that we have valid dialogue
                 speaker = rawLine.Substring(0, dialogueStart).Trim();
-                dialogue = rawLine.Substring(dialogueStart + 1, dialogueEnd - dialogueStart - 1).Replace("\\\"","\"");
+                dialogue = rawLine.Substring(dialogueStart + 1, dialogueEnd - dialogueStart - 1).Replace("\\\"", "\"");
                 if (commandStart != -1)
                     commands = rawLine.Substring(commandStart).Trim();
             }
             else if (commandStart != -1 && dialogueEnd > commandStart)
                 commands = rawLine;
             else
-                speaker = rawLine;
+                dialogue = rawLine; //speaker = rawLine;
 
-
+            //Debug.Log($"DS={dialogueStart}, DE={dialogueEnd}, CS={commandStart}");
             return (speaker, dialogue, commands);
         }
     }
