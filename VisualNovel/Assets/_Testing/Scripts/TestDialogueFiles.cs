@@ -47,7 +47,7 @@ public class TestDialogueFiles : MonoBehaviour
             }
         }*/
 
-        foreach (string line in lines)
+        /*foreach (string line in lines)
         {
             if (string.IsNullOrWhiteSpace(line)) 
                 continue;
@@ -59,8 +59,8 @@ public class TestDialogueFiles : MonoBehaviour
                 DL_COMMAND_DATA.Command command = dl.commandData.commands[i];
                 Debug.Log($"Command [{i}] '{command.name}' has arguments [{string.Join(", ", command.argument)}]");
             }
-        }
+        }*/
 
-        //DialogueSystem.instance.Say(lines);
+        DialogueSystem.instance.Say(lines);
     }
 }

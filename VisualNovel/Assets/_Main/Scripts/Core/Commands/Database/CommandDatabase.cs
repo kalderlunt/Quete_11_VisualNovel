@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class CommandDatabase
 
     public bool HasCommand(string commandName) => _database.ContainsKey(commandName);
 
-    public void ADDCommand(string commandName, Delegate commmand)
+    public void AddCommand(string commandName, Delegate commmand)
     {
         if (!_database.ContainsKey(commandName))
         {

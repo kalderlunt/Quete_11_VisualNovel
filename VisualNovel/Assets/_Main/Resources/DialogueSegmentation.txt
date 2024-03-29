@@ -1,4 +1,10 @@
 
+print_1p("This is a command runnning straitght form our dialogue file!")
+
+Kaito "Move Left and then right" print_1p("Start Moving"), [wait]moveCharDemo(left), [wait]moveCharDemo(right), print_1p("Done Moving")
+
+
+
 
 Kaito "Akari, Hello!" playSong("Funky beets" -v 0.75 -p 1), setMood(chill)
 

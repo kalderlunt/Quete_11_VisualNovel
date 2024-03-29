@@ -5,14 +5,14 @@ namespace DIALOGUE
 {
     public class DialogueParser
     {
-        private const string commandRegexPattern = @"\w*[^\s]\("; // w => character | * => any | n'importe quelle longueur tant qu'elle tant qu'elle n'est pas precede d'un espace blanc \ || ( => on cherche une parenthese
+        private const string commandRegexPattern = @"[\w\[\]]*[^\s]\("; // w => character | * => any | n'importe quelle longueur tant qu'elle tant qu'elle n'est pas precede d'un espace blanc \ || ( => on cherche une parenthese
         public static DIALOGUE_LINE Parse(string rawLine)
         {
-            Debug.Log($"Parsing line - '{rawLine}'");
+            //Debug.Log($"Parsing line - '{rawLine}'");
 
             (string speaker, string dialogue, string commands) = RipContent(rawLine);
 
-            Debug.Log($"Speaker = '{speaker}'\nDialogue = '{dialogue}'\nCommands = '{commands}'");
+            //Debug.Log($"Speaker = '{speaker}'\nDialogue = '{dialogue}'\nCommands = '{commands}'");
 
             return new DIALOGUE_LINE(speaker, dialogue, commands);
         }

@@ -467,6 +467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 173586924}
   - component: {fileID: 173586925}
+  - component: {fileID: 173586926}
   m_Layer: 0
   m_Name: Test Dialogue Files and System Conversation
   m_TagString: Untagged
@@ -496,12 +497,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173586923}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38dc7c8b302fc6f4682ee534beadc436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fileToRoad: {fileID: 0}
+  _fileToRoad: {fileID: 4900000, guid: 0717e0dee9448b34390a79ad778b278f, type: 3}
+--- !u!114 &173586926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173586923}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93c3d2804087944daf6e02c621860cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &256406314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,7 +2997,7 @@ GameObject:
   - component: {fileID: 1387470138}
   - component: {fileID: 1387470137}
   m_Layer: 5
-  m_Name: Gojo
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3006,7 +3019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 665.95, y: -156.19}
+  m_AnchoredPosition: {x: -0.000061035, y: -156.26}
   m_SizeDelta: {x: 766.47, y: 766.47}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1387470137
