@@ -1,10 +1,11 @@
+using COMMANDS;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DIALOGUE
 {
-    public class ConversationManager : MonoBehaviour
+    public class ConversationManager
     {
         private DialogueSystem _dialogueSystem => DialogueSystem.instance;
         private Coroutine _process = null;
