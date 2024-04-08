@@ -13,7 +13,7 @@ namespace DIALOGUE
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             {
-                Debug.Log("Input keyboard detected.\n\n\n\n\n\n");
+                //Debug.Log("Input keyboard detected.");
                 PromptAdvance();
             }
         }
