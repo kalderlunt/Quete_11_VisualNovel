@@ -10,7 +10,7 @@ namespace TESTING
     public class TestCharacters : MonoBehaviour
     {
 
-        [SerializeField] private string _characterName = "Kaito";
+        //[SerializeField] private string _characterName = "Kaito";
         [SerializeField] private TMP_FontAsset _fontAsset;
 
         void Start()
