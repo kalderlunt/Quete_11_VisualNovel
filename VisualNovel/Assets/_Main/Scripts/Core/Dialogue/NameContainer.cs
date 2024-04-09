@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace DIALOGUE
@@ -24,5 +25,8 @@ namespace DIALOGUE
         {
             _root.SetActive(false);
         }
+
+        public void SetNameColor(Color color) => _nameText.color = color;
+        public void SetNameFont(TMP_FontAsset font) => _nameText.font = font;
     }
 }

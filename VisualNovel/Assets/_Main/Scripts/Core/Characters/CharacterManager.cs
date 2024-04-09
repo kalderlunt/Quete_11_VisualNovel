@@ -1,6 +1,7 @@
 using DIALOGUE;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace CHARACTERS
@@ -24,6 +25,21 @@ namespace CHARACTERS
                 DestroyImmediate(gameObject);
         }
         
+        public CharacterConfigData GetCharacterConfig(string characterName)
+        {
+            return _config.GetConfig(characterName);
+        }
+
+        public Character GetCharacter(string characterName, bool createIfDoesNotExist = false)
+        {
+            if (_characters.ContainsKey(characterName.ToLower()))
+                return _characters[characterName.ToLower()];
+            else if (createIfDoesNotExist)
+                return CreateCharacter(characterName);
+
+            return null;
+        }
+
         public Character CreateCharacter(string characterName)
         {
             if (_characters.ContainsKey(characterName.ToLower()))
@@ -57,16 +73,16 @@ namespace CHARACTERS
             CharacterConfigData config = info.config;
 
             if (config.characterType == Character.CharacterType.Text)
-                return new Character_Text(info.name);
+                return new Character_Text(info.name, config);
             
             if (config.characterType == Character.CharacterType.Sprite || config.characterType == Character.CharacterType.SpriteSheet)
-                return new Character_Sprite(info.name);
+                return new Character_Sprite(info.name, config);
 
             if (config.characterType == Character.CharacterType.Live2D)
-                return new Character_Live2D(info.name);
+                return new Character_Live2D(info.name, config);
             
             if (config.characterType == Character.CharacterType.Model3D)
-                return new Character_Model3D(info.name);
+                return new Character_Model3D(info.name, config);
 
             return null;
         }
