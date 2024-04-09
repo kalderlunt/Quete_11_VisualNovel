@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CHARACTERS;
 using DIALOGUE;
+using TMPro;
 
 namespace TESTING
 {
@@ -10,6 +11,7 @@ namespace TESTING
     {
 
         [SerializeField] private string _characterName = "Kaito";
+        [SerializeField] private TMP_FontAsset _fontAsset;
 
         void Start()
         {
@@ -37,6 +39,17 @@ namespace TESTING
             };
             yield return Elen.Say(lines);
             
+            Elen.SetNameColor(Color.red);
+            Elen.SetDialogueColor(Color.green);
+            Elen.SetNameFont(_fontAsset);
+            Elen.SetDialogueFont(_fontAsset);
+            
+            yield return Elen.Say(lines);
+            
+            Elen.ResetConfigurationData();
+            
+            yield return Elen.Say(lines);
+
             lines = new()
             {
                 "I am Adam.",
