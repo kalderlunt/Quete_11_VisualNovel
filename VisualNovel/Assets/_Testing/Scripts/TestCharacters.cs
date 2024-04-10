@@ -1,6 +1,5 @@
 using CHARACTERS;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -81,22 +80,31 @@ namespace TESTING
 
             yield return Raelin.Say("Hello !");*/
 
-            Character guard1 = CreateCharacter("Guard1 as Generic");
-            Character guard2 = CreateCharacter("Guard2 as Generic");
-            Character guard3 = CreateCharacter("Guard3 as Generic");
+            Character Guard     = CreateCharacter("Guard as Generic");
+            Character Raelin    = CreateCharacter("Raelin");
+            Character Stella    = CreateCharacter("Stella");
+            Character Student   = CreateCharacter("Female Student 2");
 
-            guard1.Show();
-            guard2.Show();
-            guard3.Show();
+            Guard.SetPosition(Vector2.zero);
+            Raelin.SetPosition(new Vector2(0.5f, 0.5f));
+            Stella.SetPosition(Vector2.one);
+            Student.SetPosition(new Vector2(2,1));
 
-            guard1.SetDialogueFont(_fontAsset);
-            guard1.SetNameFont(_fontAsset);
-            guard2.SetDialogueColor(Color.cyan);
-            guard3.SetNameColor(Color.red);
+            Raelin.Show();
+            Stella.Show();
 
-            yield return guard1.Say("I want to say something important.");
-            yield return guard2.Say("Hold your peace.");
-            yield return guard3.Say("Let him speak...");
+            yield return Guard.Show();
+            yield return Guard.MoveToPosition(Vector2.one, smooth: true);
+            yield return Guard.MoveToPosition(Vector2.zero, smooth: true);
+
+            Guard.SetDialogueFont(_fontAsset);
+            Guard.SetNameFont(_fontAsset);
+            Raelin.SetDialogueColor(Color.cyan);
+            Stella.SetNameColor(Color.red);
+
+            yield return Guard.Say("I want to say something important.");
+            yield return Raelin.Say("Hold your peace.");
+            yield return Stella.Say("Let him speak...");
 
 
             yield return null;
