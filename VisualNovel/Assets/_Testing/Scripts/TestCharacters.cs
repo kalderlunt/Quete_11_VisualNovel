@@ -1,9 +1,8 @@
+using CHARACTERS;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using CHARACTERS;
-using DIALOGUE;
 using TMPro;
+using UnityEngine;
 
 namespace TESTING
 {
@@ -16,9 +15,12 @@ namespace TESTING
         void Start()
         {
             /*
-            Character Stella    = CharacterManager.instance.CreateCharacter("Stella");
-            Character Stella2   = CharacterManager.instance.CreateCharacter("Stella");
-            Character Adamn     = CharacterManager.instance.CreateCharacter("Adam");*/
+            Character Stella    = CharacterManager.instance.CreateCharacter("Female Student 2");
+            Character Stella2   = CharacterManager.instance.CreateCharacter("Raelin");
+            Character Adam     = CharacterManager.instance.CreateCharacter("Adam");
+            Character Generic     = CharacterManager.instance.CreateCharacter("Generic");
+            Character Stella = CharacterManager.instance.CreateCharacter("Stella");
+            */
 
             StartCoroutine(Test());
         }
@@ -26,6 +28,7 @@ namespace TESTING
 
         IEnumerator Test()
         {
+            /*
             Character Elen      = CharacterManager.instance.CreateCharacter("Elen");
             Character Adam      = CharacterManager.instance.CreateCharacter("Adam");
             Character Ben     = CharacterManager.instance.CreateCharacter("Benjamin");
@@ -59,7 +62,20 @@ namespace TESTING
             
             yield return Ben.Say("This is a line that I want to say.{a} It's a simple line.");
 
-            Debug.Log("Finished");
+            Debug.Log("Finished");*/
+            yield return new WaitForSeconds(1f);
+
+            Character Raelin   = CharacterManager.instance.CreateCharacter("Raelin");
+
+            yield return new WaitForSeconds(1f);
+
+            yield return Raelin.Hide();
+
+            yield return new WaitForSeconds(0.5f);
+
+            yield return Raelin.Show();
+
+            yield return Raelin.Say("Hello !");
         }
 
         void Update()
