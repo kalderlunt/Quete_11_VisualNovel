@@ -1,6 +1,7 @@
 using CHARACTERS;
 using System.Collections;
 using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace TESTING
@@ -79,12 +80,13 @@ namespace TESTING
             yield return Raelin.Show();
 
             yield return Raelin.Say("Hello !");*/
+            /*
+            Sprite bodySprite= Raelin.GetSprite("3");
+            Sprite faceSprite= Raelin.GetSprite("Laugh 3");
 
-            Character Guard     = CreateCharacter("Guard as Generic");
-            Character Raelin    = CreateCharacter("Raelin");
-            Character Stella    = CreateCharacter("Stella");
-            Character Student   = CreateCharacter("Female Student 2");
-
+            Raelin.SetSprite(bodySprite, 0);
+            Raelin.SetSprite(faceSprite, 1);
+            
             Guard.SetPosition(Vector2.zero);
             Raelin.SetPosition(new Vector2(0.5f, 0.5f));
             Stella.SetPosition(Vector2.one);
@@ -105,7 +107,41 @@ namespace TESTING
             yield return Guard.Say("I want to say something important.");
             yield return Raelin.Say("Hold your peace.");
             yield return Stella.Say("Let him speak...");
+*/
 
+            //Character_Sprite Guard     = CreateCharacter("Guard as Generic")    as Character_Sprite;
+            Character_Sprite Raelin    = CreateCharacter("Raelin")              as Character_Sprite;
+            Character_Sprite Stella    = CreateCharacter("Stella")              as Character_Sprite;
+            Stella.isVisible = false;
+            //Character_Sprite Student   = CreateCharacter("Female Student 2")    as Character_Sprite;
+
+            yield return new WaitForSeconds(1);
+
+            Sprite face = Raelin.GetSprite("B_Laugh");
+            Sprite body = Raelin.GetSprite("B2");
+            Raelin.TransitionSprite(body);
+            yield return Raelin.TransitionSprite(face, 1, 0.3f);
+            
+            Raelin.MoveToPosition(Vector2.zero);
+            Stella.Show();
+            yield return Stella.MoveToPosition(new Vector2(1, 0));
+
+            yield return Raelin.TransitionSprite(Raelin.GetSprite("A_Scold"), 1);
+            //Raelin.TransitionSprite(Raelin.GetSprite("A_Scold"), 1);
+            Raelin.TransitionSprite(Raelin.GetSprite("A2"));
+            
+            /*
+            body = Stella.GetSprite("3");
+            face = Stella.GetSprite("sad 3");
+            Stella.TransitionSprite(body);
+            Stella.TransitionSprite(face, 1);
+            */
+            
+            //Raelin.TransitionSprite(Raelin.GetSprite("B_Scold"));
+            //Sprite s1 = Guard.GetSprite("Characters-Monk");
+            //Guard.TransitionSprite(s1);
+
+            //Debug.Log($"Visible = {Guard.isVisible}");
 
             yield return null;
         }
