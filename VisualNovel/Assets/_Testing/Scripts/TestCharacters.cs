@@ -110,13 +110,21 @@ namespace TESTING
 */
 
             //Character_Sprite Guard     = CreateCharacter("Guard as Generic")    as Character_Sprite;
-            Character_Sprite Raelin    = CreateCharacter("Raelin")              as Character_Sprite;
-            Character_Sprite Stella    = CreateCharacter("Stella")              as Character_Sprite;
-            Stella.isVisible = false;
+            Character_Sprite Raelin      = CreateCharacter("Raelin")    as Character_Sprite;
+            //Character_Sprite Stella    = CreateCharacter("Stella")              as Character_Sprite;
+            //Stella.isVisible = false;
             //Character_Sprite Student   = CreateCharacter("Female Student 2")    as Character_Sprite;
 
             yield return new WaitForSeconds(1);
 
+            //Raelin.SetColor(Color.red);
+            //Raelin.layers[1].SetColor(Color.red);
+            yield return Raelin.TransitionColor(Color.red);
+            yield return Raelin.TransitionColor(Color.blue);
+            yield return Raelin.TransitionColor(Color.yellow);
+            yield return Raelin.TransitionColor(Color.white);
+            
+            /*
             Sprite face = Raelin.GetSprite("B_Laugh");
             Sprite body = Raelin.GetSprite("B2");
             Raelin.TransitionSprite(body);
@@ -129,20 +137,20 @@ namespace TESTING
             yield return Raelin.TransitionSprite(Raelin.GetSprite("A_Scold"), 1);
             //Raelin.TransitionSprite(Raelin.GetSprite("A_Scold"), 1);
             Raelin.TransitionSprite(Raelin.GetSprite("A2"));
-            
+            */
             /*
             body = Stella.GetSprite("3");
             face = Stella.GetSprite("sad 3");
             Stella.TransitionSprite(body);
             Stella.TransitionSprite(face, 1);
             */
-            
-            //Raelin.TransitionSprite(Raelin.GetSprite("B_Scold"));
-            //Sprite s1 = Guard.GetSprite("Characters-Monk");
-            //Guard.TransitionSprite(s1);
+            /*
+            Raelin.TransitionSprite(Raelin.GetSprite("B_Scold"));
+            Sprite s1 = Guard.GetSprite("Characters-Monk");
+            Guard.TransitionSprite(s1);
 
-            //Debug.Log($"Visible = {Guard.isVisible}");
-
+            Debug.Log($"Visible = {Guard.isVisible}");
+            */
             yield return null;
         }
 

@@ -2,6 +2,7 @@ using DIALOGUE;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace CHARACTERS
@@ -15,16 +16,21 @@ namespace CHARACTERS
         public RectTransform root = null;
         public CharacterConfigData config;
         public Animator animator;
+        public Color color { get; private set; } = Color.white;
 
-        protected CharacterManager manager => CharacterManager.instance;
+        protected CharacterManager characterManager => CharacterManager.instance;
         public DialogueSystem dialogueSystem = DialogueSystem.instance;
 
         // Coroutine
         protected Coroutine co_revealing, co_hiding;
         protected Coroutine co_moving;
-        public bool isRevealing => co_revealing != null;
-        public bool isHiding    => co_hiding    != null;
-        public bool isMoving    => co_moving    != null;
+        protected Coroutine co_changingColor;
+
+        public bool isRevealing     => co_revealing     != null;
+        public bool isHiding        => co_hiding        != null;
+        public bool isMoving        => co_moving        != null;
+        public bool isChangingColor => co_changingColor != null;
+
         public virtual bool isVisible { get; set; }
 
         public Character(string name, CharacterConfigData config, GameObject prefab)
@@ -35,8 +41,8 @@ namespace CHARACTERS
 
             if (prefab != null)
             {
-                GameObject ob = Object.Instantiate(prefab, manager.characterPanel);
-                ob.name = manager.FormatCharacterPath(manager.characterPrefabNameFormat, name);
+                GameObject ob = Object.Instantiate(prefab, characterManager.characterPanel);
+                ob.name = characterManager.FormatCharacterPath(characterManager.characterPrefabNameFormat, name);
                 ob.SetActive(true);
                 root = ob.GetComponent<RectTransform>();
                 animator = root.GetComponentInChildren<Animator>();
@@ -67,9 +73,9 @@ namespace CHARACTERS
                 return co_revealing;
             
             if (isHiding)
-                manager.StopCoroutine(co_hiding);
+                characterManager.StopCoroutine(co_hiding);
 
-            co_revealing = manager.StartCoroutine(ShowingOrHiding(true));
+            co_revealing = characterManager.StartCoroutine(ShowingOrHiding(true));
 
             return co_revealing;
         }
@@ -80,9 +86,9 @@ namespace CHARACTERS
                 return co_hiding;
 
             if (isRevealing)
-                manager.StopCoroutine(co_revealing);
+                characterManager.StopCoroutine(co_revealing);
 
-            co_hiding = manager.StartCoroutine(ShowingOrHiding(false));
+            co_hiding = characterManager.StartCoroutine(ShowingOrHiding(false));
 
             return co_hiding;
         }
@@ -110,9 +116,9 @@ namespace CHARACTERS
                 return null;
 
             if (isMoving)
-                manager.StopCoroutine (co_moving);
+                characterManager.StopCoroutine (co_moving);
             
-            co_moving = manager.StartCoroutine(MovingToPosition(position, speed, smooth));
+            co_moving = characterManager.StartCoroutine(MovingToPosition(position, speed, smooth));
 
             return co_moving;
         }
@@ -155,6 +161,30 @@ namespace CHARACTERS
             Vector2 maxAnchorTarget = minAnchorTarget + padding;
 
             return (minAnchorTarget, maxAnchorTarget);
+        }
+
+        public virtual void SetColor(Color color)
+        {
+            this.color = color;
+
+        }
+
+        public Coroutine TransitionColor(Color color, float speed = 1f)
+        {
+            this.color = color;
+
+            if (isChangingColor)
+                characterManager.StopCoroutine(co_changingColor);
+
+            co_changingColor = characterManager.StartCoroutine(ChangingColor(color, speed));
+
+            return co_changingColor;
+        }
+
+        public virtual IEnumerator ChangingColor(Color color, float speed)
+        {
+            Debug.Log("Color changing is not applicable on this character type!");
+            yield return null;
         }
 
         public enum CharacterType
