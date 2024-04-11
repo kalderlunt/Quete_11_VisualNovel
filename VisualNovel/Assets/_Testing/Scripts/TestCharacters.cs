@@ -3,6 +3,9 @@ using System.Collections;
 using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
+using UnityEngine.Rendering.LookDev;
+using System.Reflection;
 
 namespace TESTING
 {
@@ -109,21 +112,59 @@ namespace TESTING
             yield return Stella.Say("Let him speak...");
 */
 
-            //Character_Sprite Guard     = CreateCharacter("Guard as Generic")    as Character_Sprite;
+            Character_Sprite Guard     = CreateCharacter("Guard as Generic")    as Character_Sprite;
             Character_Sprite Raelin      = CreateCharacter("Raelin")    as Character_Sprite;
             //Character_Sprite Stella    = CreateCharacter("Stella")              as Character_Sprite;
             //Stella.isVisible = false;
             //Character_Sprite Student   = CreateCharacter("Female Student 2")    as Character_Sprite;
 
+            Guard.SetPosition(Vector2.zero);
+            Raelin.SetPosition(new Vector2(1, 0));
+            
+            Raelin.UnHighlight();
+            yield return Guard.Say(" I want to say something");
+
+            Guard.UnHighlight();
+            Raelin.Highlight();
+            yield return Raelin.Say("But I want to say something too!{c}Can I go first?");
+
+            Guard.Highlight();
+            Raelin.UnHighlight();
+            yield return Guard.Say("Sure,{a} be my guest.");
+            
+            Raelin.Highlight();
+            Guard.UnHighlight();
+            Raelin.TransitionSprite(Raelin.GetSprite("B1"));
+            Raelin.TransitionSprite(Raelin.GetSprite("B_Happy"), layer: 1);
+            yield return Raelin.Say("Yay!");
+            
+            yield return null;
+
+            /*
             yield return new WaitForSeconds(1);
 
+            yield return Raelin.UnHighlight();
+
+            yield return new WaitForSeconds(1);
+
+            yield return Raelin.TransitionColor(Color.red);
+
+            yield return new WaitForSeconds(1);
+
+            yield return Raelin.Highlight();
+
+            yield return new WaitForSeconds(1);
+
+            yield return Raelin.TransitionColor(Color.white);
+            */
+            /*
             //Raelin.SetColor(Color.red);
             //Raelin.layers[1].SetColor(Color.red);
             yield return Raelin.TransitionColor(Color.red);
             yield return Raelin.TransitionColor(Color.blue);
             yield return Raelin.TransitionColor(Color.yellow);
             yield return Raelin.TransitionColor(Color.white);
-            
+            */
             /*
             Sprite face = Raelin.GetSprite("B_Laugh");
             Sprite body = Raelin.GetSprite("B2");
@@ -151,7 +192,6 @@ namespace TESTING
 
             Debug.Log($"Visible = {Guard.isVisible}");
             */
-            yield return null;
         }
 
         void Update()
