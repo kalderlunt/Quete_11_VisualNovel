@@ -1,11 +1,7 @@
 using CHARACTERS;
 using System.Collections;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
-using UnityEngine.Rendering.LookDev;
-using System.Reflection;
 
 namespace TESTING
 {
@@ -121,6 +117,13 @@ namespace TESTING
             Guard.SetPosition(Vector2.zero);
             Raelin.SetPosition(new Vector2(1, 0));
             
+            yield return new WaitForSeconds(1);
+            
+            yield return Raelin.Flip(0.3f);
+            yield return Guard.FaceRight(immediate: true);
+            yield return Raelin.FaceLeft(immediate : true);
+
+
             Raelin.UnHighlight();
             yield return Guard.Say(" I want to say something");
 

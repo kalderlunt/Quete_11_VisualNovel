@@ -23,12 +23,14 @@ namespace CHARACTERS
         private Coroutine co_transitioningLayer = null;
         private Coroutine co_levelingAlpha      = null;
         private Coroutine co_changingColor      = null;
+        private Coroutine co_flipping = null;
 
+        private bool _isFacingLeft = Character.DEFAULT_ORIENTATION_IS_FACING_LEFT;
 
         public bool isTransitioningLayer    => co_transitioningLayer != null;
         public bool isLevelingAlpha         => co_levelingAlpha != null;
         public bool isChangingColor         => co_changingColor != null;
-
+        public bool isFlipping              => co_flipping      != null;
 
         public CharacterSpriteLayer (Image defaultRenderer, int layer = 0)
         {
@@ -170,6 +172,94 @@ namespace CHARACTERS
             }
 
             co_changingColor = null;
+        }
+
+        public Coroutine Flip(float speed = 1, bool immediate = false)
+        {
+            if (_isFacingLeft)
+                return FaceRight(speed, immediate);
+            else
+                return FaceLeft(speed, immediate);
+        }
+
+        public Coroutine FaceLeft(float speed = 1, bool immediate = false)
+        {
+            if (isFlipping)
+                _characterManager.StopCoroutine(co_flipping);
+
+            _isFacingLeft = true;
+            co_flipping = _characterManager.StartCoroutine(FaceDirection(_isFacingLeft, speed, immediate));
+            
+            return co_flipping;
+        }
+
+        public Coroutine FaceRight(float speed = 1, bool immediate = false)
+        {
+            if (isFlipping)
+                _characterManager.StopCoroutine(co_flipping);
+
+            _isFacingLeft = false;
+            co_flipping = _characterManager.StartCoroutine(FaceDirection(_isFacingLeft, speed, immediate));
+
+            return co_flipping;
+        }
+
+        private IEnumerator FaceDirection(bool faceLeft, float speedMultiplier, bool immediate)
+        {
+            float xScale = faceLeft ? 1 : -1;
+            Vector3 newScale = new(xScale, 1, 1);
+
+            if (!immediate)
+            {
+                Image newRenderer = CreateRenderer(renderer.transform.parent);
+
+                newRenderer.transform.localScale = newScale;
+
+                _transitionSpeedMultiplier = speedMultiplier;
+                TryStartLevelingAlphas();
+
+                while (isLevelingAlpha)
+                    yield return null;
+            }
+            else
+            {
+                renderer.transform.localScale = newScale;
+            }
+
+            co_flipping = null;
+
+
+            /*
+             *  {
+            Image newRenderer = CreateRenderer(renderer.transform.parent);
+
+            Vector3 currentScale = newRenderer.transform.localScale;
+            
+            float currentX = System.Math.Abs(currentScale.x);
+
+            float xScale = faceLeft ? currentX : -currentX;
+
+            Vector3 newScale = new Vector3(xScale, currentScale.y, currentScale.z);
+
+            if (!immediate)
+            {
+                newRenderer.transform.localScale = newScale;
+
+                transitionSpeedMultiplier = speedMultiplier;
+
+                TryStartLevelingAlphas();
+
+                while (isLevelingAlpha)
+                    yield return null;
+            }
+            else
+            {
+                renderer.transform.localScale = newScale;
+            }
+
+            co_flipping = null;
+        }
+             */
         }
     }
 }
