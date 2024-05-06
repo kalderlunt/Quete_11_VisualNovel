@@ -109,11 +109,40 @@ namespace TESTING
 */
 
             Character_Sprite Guard     = CreateCharacter("Guard as Generic")    as Character_Sprite;
-            Character_Sprite Raelin      = CreateCharacter("Raelin")    as Character_Sprite;
-            //Character_Sprite Stella    = CreateCharacter("Stella")              as Character_Sprite;
-            //Stella.isVisible = false;
+            Character_Sprite GuardRed  = CreateCharacter("Guard Red as Generic")    as Character_Sprite;
+            Character_Sprite Raelin    = CreateCharacter("Raelin")              as Character_Sprite;
+            Character_Sprite Stella    = CreateCharacter("Stella")              as Character_Sprite;
             //Character_Sprite Student   = CreateCharacter("Female Student 2")    as Character_Sprite;
+            //Stella.isVisible = false;
 
+            GuardRed.SetColor(Color.red);
+
+            Raelin.SetPosition(new Vector2(0.3f, 0));
+            Stella.SetPosition(new Vector2(0.45f, 0));
+            Guard.SetPosition(new Vector2(0.6f, 0));
+            GuardRed.SetPosition(new Vector2(0.75f, 0));
+
+            GuardRed.SetPriority(1000);
+            Stella.SetPriority(15);
+            Raelin.SetPriority(8);
+            Guard.SetPriority(30);
+
+            yield return new WaitForSeconds(1);
+
+            CharacterManager.instance.SortCharacters(new string[] { "Stella", "Raelin" });
+
+
+            yield return new WaitForSeconds(1);
+            
+            CharacterManager.instance.SortCharacters();
+            
+            yield return new WaitForSeconds(1);
+
+            CharacterManager.instance.SortCharacters(new string[] { "Realin", "Guard Red", "Guard", "Stella"});
+
+            yield return null;
+
+            /*
             Guard.SetPosition(Vector2.zero);
             Raelin.SetPosition(new Vector2(1, 0));
             
@@ -140,9 +169,7 @@ namespace TESTING
             Raelin.TransitionSprite(Raelin.GetSprite("B1"));
             Raelin.TransitionSprite(Raelin.GetSprite("B_Happy"), layer: 1);
             yield return Raelin.Say("Yay!");
-            
-            yield return null;
-
+            */
             /*
             yield return new WaitForSeconds(1);
 
